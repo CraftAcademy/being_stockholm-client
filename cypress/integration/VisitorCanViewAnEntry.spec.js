@@ -5,7 +5,7 @@ describe('Visitor can view', () => {
     cy.route({
       method: 'GET',
       url: 'http://localhost:3002/api/v1/posts',
-      response: 'fixture:list_of_posts.json',
+      response: 'fixture:list_of_entries.json',
       status: 200
     })
     cy.route({
@@ -22,8 +22,8 @@ describe('Visitor can view', () => {
 
     let text = ['Midsommar', 'Ballonggatan 23, 169 71 Solna, Sweden', '20-06-2019 | 19:28']
 
-    text.forEach(post => {
-      cy.contains(post)
+    text.forEach(entry => {
+      cy.contains(entry)
     })
 
     cy.get('#image_3').should('have.attr', 'src')

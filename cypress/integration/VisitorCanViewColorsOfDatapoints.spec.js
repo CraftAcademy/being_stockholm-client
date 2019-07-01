@@ -5,7 +5,7 @@ describe('Visitor can view on the map', () => {
     cy.route({
       method: 'GET',
       url: 'http://localhost:3002/api/v1/posts',
-      response: 'fixture:list_of_posts.json',
+      response: 'fixture:list_of_entries.json',
       status: 200
     })
     cy.visit('http://localhost:3000')
@@ -13,12 +13,12 @@ describe('Visitor can view on the map', () => {
 
   it('datapoints of posts only if they are published', () => {
 
-    let postsPublished = [
+    let entriesPublished = [
       "#6", "#7", "#8", "#9", "#10", "#11"
     ]
 
-    postsPublished.forEach(post => {
-      cy.get(post).should('be.visible')
+    entriesPublished.forEach(entry => {
+      cy.get(entry).should('be.visible')
     })
   })
 

@@ -5,17 +5,8 @@ describe('Admin can review an entry and', () => {
     cy.route({
       method: 'GET',
       url: 'http://localhost:3002/api/v1/posts',
-      response: 'fixture:list_of_posts.json',
+      response: 'fixture:list_of_entries.json',
       status: 200
-    })
-    cy.route({
-      method: 'POST',
-      url: 'http://localhost:3002/api/v1/auth/sign_in',
-      status: 200,
-      response: 'fixture:successful_login_admin.json',
-      headers: {
-        "uid": "yatwan@mail.com"
-      }
     })
     cy.route({
       method: 'PATCH',
@@ -26,13 +17,7 @@ describe('Admin can review an entry and', () => {
         "uid": "yatwan@mail.com"
       }
     })
-    cy.visit('http://localhost:3000')
-    cy.get('#profile-icon').click()
-    cy.get('#login-form').within(() => {
-      cy.get('#email').type('yatwan@mail.com')
-      cy.get('#password').type('password')
-    })
-    cy.get('#login_form_button').click()
+    cy.login('fixture:successful_login_admin.json', 'yatwan@mail.com', 'password', 200)
     cy.wait(3000)
   })
 
@@ -47,7 +32,7 @@ describe('Admin can review an entry and', () => {
       cy.wait(1000)
     })
 
-    cy.contains('You have accepted this post!')
+    cy.contains('You have accepted this entry!')
   })
 
   it('get Decline popup message if she does not accept the entry', () => {
@@ -61,6 +46,6 @@ describe('Admin can review an entry and', () => {
       cy.wait(1000)
     })
 
-    cy.contains('You have declined this post!')
+    cy.contains('You have declined this entry!')
   })
 })
